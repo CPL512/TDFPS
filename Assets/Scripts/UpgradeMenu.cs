@@ -2,10 +2,14 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/**
+ * Handles upgrade menu functionality
+ */
 public class UpgradeMenu : MonoBehaviour {
 
     Controller control;
 
+    /* All the texts on the menu */
     public Text insuffFundsText;
     public Text currDmgText;
     public Text currSpdText;
@@ -30,18 +34,21 @@ public class UpgradeMenu : MonoBehaviour {
         {
             timer += Time.deltaTime;
 
-            if (timer >= warningTime)
+            if (timer >= warningTime) //insuffFundsText duration reached
             {
-                insuffFundsText.enabled = false;
+                insuffFundsText.enabled = false; //disable it
                 timer = 0f;
                 timing = false;
             }
         }
     }
 
+    /**
+     * Upgrade player's damage
+     */
     public void upgradeDmg()
     {
-        if(!control.upgradeDmg())
+        if(!control.upgradeDmg()) //let control upgrade the damage, false if not enough seeds
         {
             insuffFundsText.enabled = true;
             timing = true;
@@ -50,9 +57,12 @@ public class UpgradeMenu : MonoBehaviour {
         updateMenu();
     }
 
+    /**
+     * Upgrade player's shoot speed
+     */
     public void upgradeSpd()
     {
-        if (!control.upgradeSpd())
+        if (!control.upgradeSpd()) //let control upgrade the speed, false if not enoughs seeds
         {
             insuffFundsText.enabled = true;
             timing = true;
@@ -61,6 +71,9 @@ public class UpgradeMenu : MonoBehaviour {
         updateMenu();
     }
 
+    /**
+     * Update all the texts on the menu
+     */
     public void updateMenu()
     {
         currDmgText.text = "Dmg: " + control.getDamage();

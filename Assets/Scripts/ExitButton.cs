@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Closes whatever Canvas this exit button is on
+ */
 public class ExitButton : MonoBehaviour {
 
-    public Canvas menu;
-    Controller control;
+    public Canvas menu; //the menu this button is on
+    Controller control; //the controller
 
 	// Use this for initialization
 	void Start () {
@@ -13,16 +16,18 @@ public class ExitButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))//escape also works to close
         {
-            menu.enabled = false;
-            control.lockPlayerInput(false);
+            closeMenu();
         }
     }
 
+    /**
+     * Handles menu closing
+     */
     public void closeMenu()
     {
-        menu.enabled = false;
-        control.lockPlayerInput(false);
+        menu.enabled = false; //close menu
+        control.lockPlayerInput(false); //menu is closed so unlock player input
     }
 }

@@ -1,32 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Node class used for the enemy list LinkedList. Assists LinkedList functionality
+ */
 public class AntNode : MonoBehaviour{
 
     AntNode nextAnt;
     AntNode prevAnt;
 
+    /**
+     * Gets ant next in line, ie ant behind this ant
+     */
     public AntNode getNextAnt()
     {
         return nextAnt;
     }
 
+    /**
+     * Sets next ant in line
+     */
     public void setNextAnt(AntNode toSet)
     {
         nextAnt = toSet;
     }
 
+    /**
+     * Get ant previous in line, ie ant in front of this ant
+     */
     public AntNode getPrevAnt()
     {
         return prevAnt;
     }
 
-    public void setPrevAnt(AntNode toSet)
+    /**
+     * Sets previous ant in line
+     */
+    public void setPrevAnt(AntNode toSet) 
     {
         prevAnt = toSet;
     }
 
-    public void die(int seedsToAdd)
+    /**
+     * Removes this ant from LinkedList, sets references, and adds to player's seeds
+     */
+    public void die(int seedsToAdd) 
     {
         nextAnt.setPrevAnt(prevAnt);
         prevAnt.setNextAnt(nextAnt);

@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Handles tesla coil behavior
+ */
 public class TeslaScript : MonoBehaviour {
 
-    public GameObject shock;
+    public GameObject shock; //the shock to spawn
 
     public float interval;
     float timer = 0f;
@@ -18,11 +21,14 @@ public class TeslaScript : MonoBehaviour {
         timer += Time.deltaTime;
 	}
 
+    /**
+     * Collsion event
+     */
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy") && timer >= interval)
+        if(other.CompareTag("Enemy") && timer >= interval) //ant entered range and timer reached interval
         {
-            Instantiate(shock, transform.position, transform.rotation);
+            Instantiate(shock, transform.position, transform.rotation); //spawn the shock
             timer = 0f;
         }
     }

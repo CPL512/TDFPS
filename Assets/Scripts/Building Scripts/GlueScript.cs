@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Handles glue launcher behavior
+ */
 public class GlueScript : MonoBehaviour {
 
     Controller control;
 
-    public GameObject spawnPoint;
-    public GameObject gluebomb;
-    AntNode target;
+    public GameObject spawnPoint; //point at which to spawn glue bombs
+    public GameObject gluebomb; //the glue bomb to spawn
+    AntNode target; //current target
     float yOffset = 3.65f;
-    public float range = 40f;
+    public float range = 40f; //maximum range of this launcher
     float timer = 0f;
     public float interval;
 
@@ -22,28 +25,28 @@ public class GlueScript : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
 
-        if (target == null && control.getFirstAnt() != control.getTail())
+        if (target == null && control.getFirstAnt() != control.getTail()) //no target and control has ants to target
         {
-            target = control.getFirstAnt();
+            target = control.getFirstAnt(); //get first ant
         }
 
-        while (target != null && Vector3.Distance(transform.position, target.transform.position) > range)
+        while (target != null && Vector3.Distance(transform.position, target.transform.position) > range) //loop until a target in range is found or end of list reached
         {
-            target = target.getNextAnt();
+            target = target.getNextAnt(); //move to next ant
 
-            if (target == control.getTail())
+            if (target == control.getTail()) //reached end of list
             {
-                target = null;
+                target = null; //set target to null
             }
         }
 
-        if (target != null)
+        if (target != null) //have a valid target
         {
-            transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + yOffset, target.transform.position.z));
+            transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + yOffset, target.transform.position.z)); //look at target
 
             if (timer >= interval)
             {
-                Instantiate(gluebomb, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                Instantiate(gluebomb, spawnPoint.transform.position, spawnPoint.transform.rotation); //spawn a glue bomb
                 timer = 0;
             }
         }

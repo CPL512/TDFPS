@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Controller : MonoBehaviour {
@@ -8,12 +9,20 @@ public class Controller : MonoBehaviour {
     PlayerShoot shootScript;
     PlayerMove moveScript;
 
+    public static int wavesSurvived = 0;
+
+    public string nextSceneName;
+
     public Text seedText;
+    public Text nextWaveText;
 
     AntNode head;
     AntNode tail;
 
-    int seeds;
+    public int seeds;
+
+    public bool[] spawnerWaiting;
+    bool waiting = true;
 
     int shootDmg;
     int shootSpd;
@@ -37,7 +46,7 @@ public class Controller : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        seeds = 40;
+        nextWaveText.enabled = true;
 
         head = gameObject.AddComponent<AntNode>();
         tail = gameObject.AddComponent<AntNode>();
@@ -53,11 +62,48 @@ public class Controller : MonoBehaviour {
     void Update() {
         seedText.text = "Seeds: " + seeds;
 
-        /* TODO waves: check if head ant is null, null means wave over, enable next wave button or text prompt for a key press to advance wave
-         * difference between wave just finished and inbetween rounds? waveDone bool and nextWave function in spawner?
-         * 2d array to hold waves and enemies? enemies[i][j] i is wave number j is enemies
-         * can iterate through j's and instantiate one of each, or have int that says how many of each j to spawn, so each j is unique enemy
-         */
+        if(head.getNextAnt() != tail)
+        {
+            return;
+        }
+
+        if (!waiting)
+        {
+            for (int i = 0; i < spawnerWaiting.Length; i++)
+            {
+                if (!spawnerWaiting[i])
+                {
+                    return;
+                }
+            }
+
+            wavesSurvived++;
+            waiting = true;
+            nextWaveText.enabled = true;
+        }
+
+        if(waiting && Input.GetKeyDown(KeyCode.N))
+        {
+            GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawn");
+            for(int i = 0; i < spawners.Length; i++)
+            {
+                if(spawners[i].GetComponent<Spawner>().next())
+                {
+                    SceneManager.LoadScene(nextSceneName);
+                }
+            }
+            for(int i = 0; i < spawnerWaiting.Length; i++)
+            {
+                spawnerWaiting[i] = false;
+            }
+            nextWaveText.enabled = false;
+            waiting = false;
+        }
+    }
+
+    public void setSpawnerDone(int ind)
+    {
+        spawnerWaiting[ind] = true;
     }
 
     public void lockPlayerInput(bool stop)
