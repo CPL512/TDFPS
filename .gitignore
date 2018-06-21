@@ -1,0 +1,10 @@
+.vs
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-firstpass.csproj
+Assembly-CSharp.csproj
+Library/
+ProjectSettings/
+TDFPS.VC.db
+TDFPS.sln
+Temp/
+obj/

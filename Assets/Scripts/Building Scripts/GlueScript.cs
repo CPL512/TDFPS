@@ -11,7 +11,6 @@ public class GlueScript : MonoBehaviour {
     public GameObject spawnPoint; //point at which to spawn glue bombs
     public GameObject gluebomb; //the glue bomb to spawn
     AntNode target; //current target
-    float yOffset = 3.65f;
     public float range = 40f; //maximum range of this launcher
     float timer = 0f;
     public float interval;
@@ -42,7 +41,7 @@ public class GlueScript : MonoBehaviour {
 
         if (target != null) //have a valid target
         {
-            transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + yOffset, target.transform.position.z)); //look at target
+            transform.LookAt(target.getCenterMass()); //look at target
 
             if (timer >= interval)
             {

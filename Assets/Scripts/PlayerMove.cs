@@ -41,6 +41,10 @@ public class PlayerMove : MonoBehaviour {
             movement = transform.rotation * movement; //adjust motion vector according to new facing direction
             player.Move(movement * Time.deltaTime); //move player
         }
+        if(transform.position.y > 0)
+        {
+            player.Move(new Vector3(0, -1 * player.transform.position.y, 0));
+        }
 	}
     
     /**

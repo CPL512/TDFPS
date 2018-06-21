@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour {
 
     AntNode head;
     AntNode tail;
+    GameObject[] spawners;
 
     public int seeds;
 
@@ -56,6 +57,12 @@ public class Controller : MonoBehaviour {
 
         shootScript = GameObject.FindGameObjectWithTag("Shooter").GetComponent<PlayerShoot>();
         moveScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>();
+
+        spawners = GameObject.FindGameObjectsWithTag("Spawn");
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            spawners[i].GetComponent<Spawner>().updatePath();
+        }
     }
 
     // Update is called once per frame
@@ -80,11 +87,14 @@ public class Controller : MonoBehaviour {
             wavesSurvived++;
             waiting = true;
             nextWaveText.enabled = true;
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                spawners[i].GetComponent<Spawner>().updatePath();
+            }
         }
 
         if(waiting && Input.GetKeyDown(KeyCode.N))
         {
-            GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawn");
             for(int i = 0; i < spawners.Length; i++)
             {
                 if(spawners[i].GetComponent<Spawner>().next())

@@ -11,7 +11,6 @@ public class TurretScript : MonoBehaviour {
     public GameObject[] spawnPoints; //array of points at which to spawn bullets
     public GameObject bullet; //bullet just spawned
     AntNode target; //target
-    float yOffset = 3.65f;
     public float range = 40f; //maximum target range
     float timer = 0f;
     int currPoint = 0; //index of current spawn point
@@ -44,7 +43,7 @@ public class TurretScript : MonoBehaviour {
 
         if(target != null) //valid target is found
         {
-            transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + yOffset, target.transform.position.z)); //face target
+            transform.LookAt(target.getCenterMass()); //face target
 
             if(timer >= interval)
             {

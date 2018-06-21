@@ -8,6 +8,7 @@ public class AntNode : MonoBehaviour{
 
     AntNode nextAnt;
     AntNode prevAnt;
+    public GameObject abdomen;
 
     /**
      * Gets ant next in line, ie ant behind this ant
@@ -39,6 +40,14 @@ public class AntNode : MonoBehaviour{
     public void setPrevAnt(AntNode toSet) 
     {
         prevAnt = toSet;
+    }
+
+    /**
+     * Returns position at which turrets should aim
+     */
+    public Vector3 getCenterMass()
+    {
+        return abdomen.transform.position;
     }
 
     /**

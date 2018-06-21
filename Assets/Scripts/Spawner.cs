@@ -16,14 +16,15 @@ public class Spawner : MonoBehaviour {
     public GameObject[] toSpawn; //array of ants to spawn, each index is a wave
     public int[] numToSpawn; //number to spawn of each ant in toSpawn
     public bool spawning = false; //whether this spawner is spawning
-    private int wave; //current wave/index in arrays
-    private int antNum; //number of ants spawned this wave
+    public int wave = -1; //current wave/index in arrays, start before first
+    private int antNum = 0; //number of ants spawned this wave
+
+    public GameObject path;
+    GameObject pathInstance;
 
     // Use this for initialization
     void Start () {
         control = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>();
-        wave = -1; //start before first wave
-        antNum = 0;
 	}
 	
 	// Update is called once per frame
@@ -61,5 +62,23 @@ public class Spawner : MonoBehaviour {
         }
 
         return true; //last wave just finished, return true to indicate move to next map
-    } 
+    }
+
+    /**
+     * Spawns or destroys path indicator depending on if this spawner is active next wave
+     */
+    public void updatePath()
+    {
+        if(wave < toSpawn.Length - 1 && numToSpawn[wave + 1] > 0)
+        {
+            if (pathInstance == null)
+            {
+                pathInstance = (GameObject)Instantiate(path, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+        }
+        else
+        {
+            Destroy(pathInstance);
+        }
+    }
 }
