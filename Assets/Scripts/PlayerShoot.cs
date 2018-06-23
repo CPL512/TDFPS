@@ -7,8 +7,8 @@ using System.Collections;
 public class PlayerShoot : MonoBehaviour {
     public GameObject bullet; //bullet prefab
     GameObject currBullet; //bulet just spawned
-    public float interval = 1f; //interval between shots
-    int damage = 10; //damage of bullets
+    static float interval = 1f; //interval between shots
+    static int damage = 10; //damage of bullets
     float timer; //timer of shots
     bool locked; //whether input is locked
 

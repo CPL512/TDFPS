@@ -8,14 +8,24 @@ using System.Collections;
  */
 public class GameRestart : MonoBehaviour {
 
+    const int WAVES_SCORE_FACTOR = 10;
+    const int SEEDS_SCORE_FACTOR = 1;
+    const int MELON_HEALTH_SCORE_FACTOR = 100;
+
     public Text finishMessageText; //text displaying the finishing message
-    public Text wavesSurvivedText; //text displaying number of waves survived
+    public Text infoText; //text displaying waves survived, seeds, and watermelon health
+    public Text scoreText; //text displaying player's score
 
 	// Use this for initialization
 	void Start () {
         GameObject light = GameObject.FindGameObjectWithTag("Light");
 
-        wavesSurvivedText.text = "Waves Survived: " + Controller.wavesSurvived; //set text according to number of waves survived
+        int waves = Controller.getWavesSurvived();
+        int seeds = Controller.getSeeds();
+        int health = WatermelonHealth.NUM_MELONS - 1 - WatermelonHealth.getMelonInd();
+
+        infoText.text = "Waves Survived: " + waves + " Seeds: " + seeds + " Watermelon Health: " + health; //set text according to number of waves survived
+        scoreText.text = "Score: " + ((WAVES_SCORE_FACTOR * waves) + (SEEDS_SCORE_FACTOR * seeds) + (MELON_HEALTH_SCORE_FACTOR * health));
 
         if(WatermelonHealth.getMelonInd() == WatermelonHealth.NUM_MELONS - 1)
         {
@@ -27,6 +37,8 @@ public class GameRestart : MonoBehaviour {
             finishMessageText.text = "You Win!";
             light.transform.Rotate(new Vector3(-40, 0, 0));
         }
+
+        Cursor.visible = true;
 	}
 	
 	// Update is called once per frame

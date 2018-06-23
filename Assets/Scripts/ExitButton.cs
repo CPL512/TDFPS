@@ -29,5 +29,6 @@ public class ExitButton : MonoBehaviour {
     {
         menu.enabled = false; //close menu
         control.lockPlayerInput(false); //menu is closed so unlock player input
+        Cursor.visible = false;
     }
 }

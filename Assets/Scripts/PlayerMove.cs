@@ -6,6 +6,9 @@ using System.Collections;
  */
 public class PlayerMove : MonoBehaviour {
 
+    const double STRAIGHT_UP = 0.75;
+    const double STRAIGHT_DOWN = -0.75;
+
     public float speed = 5f; //speed of player movement
     public float sensitivity = 5f; //camera sensitivity
     CharacterController player;
@@ -34,6 +37,15 @@ public class PlayerMove : MonoBehaviour {
 
             rotX = Input.GetAxis("Mouse X") * sensitivity; //get x axis rotation
             rotY = Input.GetAxis("Mouse Y") * sensitivity; //get y axis rotation
+            Quaternion resultYQuat = eyes.transform.localRotation * Quaternion.Euler(-rotY, 0, 0);
+            if(resultYQuat.x >= STRAIGHT_UP)
+            {
+                rotY = (float)(STRAIGHT_UP - eyes.transform.localRotation.x);
+            }
+            else if(resultYQuat.x <= STRAIGHT_DOWN)
+            {
+                rotY = (float)(STRAIGHT_DOWN - eyes.transform.localRotation.x);
+            }
 
             Vector3 movement = new Vector3(moveLR, 0, moveFB); //preliminary motion vector
             transform.Rotate(0, rotX, 0); //rotate player on y axis according to x rotation

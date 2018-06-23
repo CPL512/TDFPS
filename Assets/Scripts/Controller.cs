@@ -9,7 +9,8 @@ public class Controller : MonoBehaviour {
     PlayerShoot shootScript;
     PlayerMove moveScript;
 
-    public static int wavesSurvived = 0;
+    private static int wavesSurvived = 0;
+    private static int seeds;
 
     public string nextSceneName;
 
@@ -20,7 +21,7 @@ public class Controller : MonoBehaviour {
     AntNode tail;
     GameObject[] spawners;
 
-    public int seeds;
+    
 
     public bool[] spawnerWaiting;
     bool waiting = true;
@@ -28,14 +29,14 @@ public class Controller : MonoBehaviour {
     int shootDmg;
     int shootSpd;
 
-    int dmgUpCost = 5;
-    int dmgCostIncrease = 5;
-    int dmgUp = 5;
-    int dmgUpIncrease = 1;
-    int spdUpCost = 5;
-    int spdCostIncrease = 5;
-    float spdUp = .9f;
-    float spdUpIncrease = .05f;
+    static int dmgUpCost = 5;
+    static int dmgCostIncrease = 5;
+    static int dmgUp = 5;
+    static int dmgUpIncrease = 1;
+    static int spdUpCost = 5;
+    static int spdCostIncrease = 5;
+    static float spdUp = .9f;
+    static float spdUpIncrease = .05f;
 
     public int T1Cost = 5;
     public int T2Cost = 10;
@@ -63,6 +64,8 @@ public class Controller : MonoBehaviour {
         {
             spawners[i].GetComponent<Spawner>().updatePath();
         }
+
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -147,17 +150,27 @@ public class Controller : MonoBehaviour {
         ant.setNextAnt(tail);
     }
 
-    public void addSeeds(int toAdd)
+    public static int getWavesSurvived()
+    {
+        return wavesSurvived;
+    }
+
+    public static void resetWavesSurvived()
+    {
+        wavesSurvived = 0;
+    }
+
+    public static void addSeeds(int toAdd)
     {
         seeds += toAdd;
     }
 
-    public void setSeeds(int toSet)
+    public static void setSeeds(int toSet)
     {
         seeds = toSet;
     }
 
-    public int getSeeds()
+    public static int getSeeds()
     {
         return seeds;
     }

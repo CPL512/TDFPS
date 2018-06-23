@@ -58,6 +58,6 @@ public class AntNode : MonoBehaviour{
         nextAnt.setPrevAnt(prevAnt);
         prevAnt.setNextAnt(nextAnt);
         Destroy(this.gameObject);
-        GameObject.FindGameObjectWithTag("GameController").GetComponent<Controller>().addSeeds(seedsToAdd);
+        Controller.addSeeds(seedsToAdd);
     }
 }
