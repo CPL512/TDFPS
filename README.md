@@ -4,4 +4,4 @@ Tower defense overarching strategy combined with first-person shooter second to 
 Defend your watermelon from the waves of ants. Killing ants awards the player resources which can be spent
 on building or upgrading turrets, or upgrading the player's own shooting capabilities.
 
-TODO: buildings targetting different heights, ant animation, sound, more maps
+Additions to consider: sound, more maps
